@@ -8,7 +8,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>{{ config('app.name', 'Laravel') }}</title>
-    <link rel="icon" href="/storage/img/white-chat-square-dots.png">
+    <link rel="icon" href="{{ config('app.env', 'local') == 'local'? asset('/storage/img/white-chat-square-dots.png'):secure_asset('/storage/img/white-chat-square-dots.png') }}">
 
     
     <!-- Fonts -->
