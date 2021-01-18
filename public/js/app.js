@@ -1991,8 +1991,16 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  data: function data() {
+    return {
+      switchMenu: false
+    };
+  },
   computed: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_0__.mapGetters)(['user'])),
   methods: _objectSpread(_objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_0__.mapActions)(['resetUser'])), (0,vuex__WEBPACK_IMPORTED_MODULE_0__.mapActions)(['fetchUser'])), {}, {
     logout: function logout() {
@@ -2005,6 +2013,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           name: 'home'
         });
       });
+    },
+    toggleMenu: function toggleMenu() {
+      this.switchMenu = !this.switchMenu;
     }
   }),
   mounted: function mounted() {
@@ -38940,7 +38951,7 @@ var render = function() {
     [
       _c(
         "div",
-        { staticClass: "d-flex" },
+        { staticClass: "d-md-flex", class: { "d-none": _vm.switchMenu } },
         [
           _c(
             "router-link",
@@ -38973,7 +38984,10 @@ var render = function() {
       _vm._v(" "),
       _c(
         "div",
-        { staticClass: "d-flex" },
+        {
+          staticClass: "d-none d-md-flex",
+          class: { "d-flex": _vm.switchMenu }
+        },
         [
           !_vm.user
             ? _c(
@@ -39014,7 +39028,23 @@ var render = function() {
             : _vm._e()
         ],
         1
-      )
+      ),
+      _vm._v(" "),
+      _c("div", { staticClass: "d-flex d-md-none" }, [
+        _c(
+          "button",
+          {
+            staticClass: "btn btn-primary",
+            on: {
+              click: function($event) {
+                $event.preventDefault()
+                return _vm.toggleMenu($event)
+              }
+            }
+          },
+          [_vm._v("Switch")]
+        )
+      ])
     ]
   )
 }
