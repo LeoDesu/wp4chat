@@ -38956,7 +38956,7 @@ var render = function() {
           _c(
             "router-link",
             {
-              staticClass: "btn btn-primary mr-2",
+              staticClass: "btn btn-primary mr-1",
               attrs: { to: "/", exact: "" }
             },
             [_vm._v("Home")]
@@ -38964,17 +38964,14 @@ var render = function() {
           _vm._v(" "),
           _c(
             "router-link",
-            { staticClass: "btn btn-primary mr-2", attrs: { to: "/about" } },
+            { staticClass: "btn btn-primary mr-1", attrs: { to: "/about" } },
             [_vm._v("About")]
           ),
           _vm._v(" "),
           _vm.user
             ? _c(
                 "router-link",
-                {
-                  staticClass: "btn btn-primary mr-2",
-                  attrs: { to: "/dashboard" }
-                },
+                { staticClass: "btn btn-primary", attrs: { to: "/dashboard" } },
                 [_vm._v("Dashboard")]
               )
             : _vm._e()
@@ -38993,7 +38990,7 @@ var render = function() {
             ? _c(
                 "router-link",
                 {
-                  staticClass: "btn btn-primary mr-2",
+                  staticClass: "btn btn-primary mr-1",
                   attrs: { to: "/login" }
                 },
                 [_vm._v("Login")]
@@ -39003,10 +39000,7 @@ var render = function() {
           !_vm.user
             ? _c(
                 "router-link",
-                {
-                  staticClass: "btn btn-primary mr-2",
-                  attrs: { to: "/register" }
-                },
+                { staticClass: "btn btn-primary", attrs: { to: "/register" } },
                 [_vm._v("Register")]
               )
             : _vm._e(),
@@ -39015,7 +39009,7 @@ var render = function() {
             ? _c(
                 "button",
                 {
-                  staticClass: "btn btn-primary mr-2",
+                  staticClass: "btn btn-primary",
                   on: {
                     click: function($event) {
                       $event.preventDefault()
