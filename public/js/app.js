@@ -38915,10 +38915,18 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "container" }, [
       _c("div", { staticClass: "card bg-dark text-white" }, [
-        _c("div", { staticClass: "card-header" }, [_c("h4", [_vm._v("Home")])]),
+        _c("div", { staticClass: "card-header" }, [
+          _c("h4", { staticClass: "text-center" }, [_vm._v("Home")])
+        ]),
         _vm._v(" "),
         _c("div", { staticClass: "card-body" }, [
-          _c("p", [_vm._v("Welcom to WP4Chat")])
+          _c("p", { staticClass: "text-center" }, [
+            _vm._v("Welcom to WP4Chat"),
+            _c("br"),
+            _vm._v(
+              "a simple Single Page Wep Aplication for chating with your friends."
+            )
+          ])
         ])
       ])
     ])
