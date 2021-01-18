@@ -52,7 +52,7 @@ export default {
         registerAccount(){
             axios.post("/api/register", this.form)
             .then( res => {
-                console.log("Register successful!")
+                this.$router.push({ name: "dashboard"})
             })
             .catch( err => {
                 this.errors = err.response.data.errors

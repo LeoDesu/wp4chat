@@ -2191,7 +2191,9 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       axios.post("/api/register", this.form).then(function (res) {
-        console.log("Register successful!");
+        _this.$router.push({
+          name: "dashboard"
+        });
       })["catch"](function (err) {
         _this.errors = err.response.data.errors;
       });
