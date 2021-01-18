@@ -1,5 +1,5 @@
 <template>
-    <nav class="navbar bg-dark navbar-dark text-white mb-3">
+    <nav class="navbar bg-dark navbar-dark text-white mb-3 pt-1 pb-1">
         <div class="d-md-flex" :class="{'d-none':switchMenu}">
             <router-link to="/" class="btn btn-primary mr-1" exact>Home</router-link>
             <router-link to="/about" class="btn btn-primary mr-1">About</router-link>
@@ -11,7 +11,8 @@
             <button v-if="user" @click.prevent="logout" class="btn btn-primary">Logout</button>
         </div>
         <div class="d-flex d-md-none">
-            <button class="btn btn-primary" @click.prevent="toggleMenu">Switch</button>
+            <img class="w-5em" :class="{'rotate-180': switchMenu}"  @click.prevent="toggleMenu" src="/storage/img/down-arrow.svg"/>
+
         </div>
     </nav>
 </template>

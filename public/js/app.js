@@ -1994,6 +1994,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
@@ -38947,7 +38948,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "nav",
-    { staticClass: "navbar bg-dark navbar-dark text-white mb-3" },
+    { staticClass: "navbar bg-dark navbar-dark text-white mb-3 pt-1 pb-1" },
     [
       _c(
         "div",
@@ -39025,19 +39026,17 @@ var render = function() {
       ),
       _vm._v(" "),
       _c("div", { staticClass: "d-flex d-md-none" }, [
-        _c(
-          "button",
-          {
-            staticClass: "btn btn-primary",
-            on: {
-              click: function($event) {
-                $event.preventDefault()
-                return _vm.toggleMenu($event)
-              }
+        _c("img", {
+          staticClass: "w-5em",
+          class: { "rotate-180": _vm.switchMenu },
+          attrs: { src: "/storage/img/down-arrow.svg" },
+          on: {
+            click: function($event) {
+              $event.preventDefault()
+              return _vm.toggleMenu($event)
             }
-          },
-          [_vm._v("Switch")]
-        )
+          }
+        })
       ])
     ]
   )
