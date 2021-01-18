@@ -38821,12 +38821,16 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "container" }, [
       _c("div", { staticClass: "card bg-dark text-white" }, [
-        _c("div", { staticClass: "card-header" }, [
+        _c("div", { staticClass: "card-header text-center" }, [
           _vm._v("\n                About\n            ")
         ]),
         _vm._v(" "),
-        _c("div", { staticClass: "card-body" }, [
-          _vm._v("\n                content\n            ")
+        _c("div", { staticClass: "card-body text-center" }, [
+          _vm._v(
+            "\n                uhh, there's still nothing much about this web yet."
+          ),
+          _c("br"),
+          _vm._v("but I'll be sure updating it soon\n            ")
         ])
       ])
     ])
