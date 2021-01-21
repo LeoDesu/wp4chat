@@ -5,9 +5,14 @@
             <div v-if="user" class="card bg-dark text-white">
                 <div class="card-header">
                     <h3>{{ user.name }}</h3>
+                    <p>{{ user.email }}</p>
                 </div>
                 <div class="card-body">
-                    <p>{{ user.email }}</p>
+                    <router-link v-for="conversation in conversations" :key="conversation.id" :to="'/chat/'+conversation.id">
+                        <div class="col-md-6 bg-primary rounded pt-2 pb-2 pl-4 pr-4 text-white">
+                            {{ conversation.name }}
+                        </div>
+                    </router-link>
                 </div>
             </div>
             <div v-else class="card bg-dark">
@@ -27,8 +32,20 @@ export default {
         Spinner,
         NavBar
     },
+    data(){
+        return {
+            conversations: []
+        }
+    },
     computed:{
         ...mapGetters(['user'])
+    },
+    mounted(){
+        axios.get('/api/conversations').then( res => {
+            this.conversations = res.data
+        }).catch( res => {
+            console.log("can not retreive conversations.")
+        })
     }
 }
 </script>

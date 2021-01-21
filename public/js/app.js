@@ -1910,6 +1910,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
 
 
 
@@ -1918,7 +1923,21 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     Spinner: vue_loading_spinner_src_components_Circle2__WEBPACK_IMPORTED_MODULE_0__.default,
     NavBar: _NavBar_vue__WEBPACK_IMPORTED_MODULE_1__.default
   },
-  computed: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_2__.mapGetters)(['user']))
+  data: function data() {
+    return {
+      conversations: []
+    };
+  },
+  computed: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_2__.mapGetters)(['user'])),
+  mounted: function mounted() {
+    var _this = this;
+
+    axios.get('/api/conversations').then(function (res) {
+      _this.conversations = res.data;
+    })["catch"](function (res) {
+      console.log("can not retreive conversations.");
+    });
+  }
 });
 
 /***/ }),
@@ -2293,6 +2312,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_auth_Login__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/auth/Login */ "./resources/js/components/auth/Login.vue");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./store */ "./resources/js/store/index.js");
+
 
 
 
@@ -2325,13 +2346,18 @@ __webpack_require__.r(__webpack_exports__);
     component: _components_DashBoard__WEBPACK_IMPORTED_MODULE_1__.default,
     name: 'dashboard',
     beforeEnter: function beforeEnter(to, from, next) {
-      axios__WEBPACK_IMPORTED_MODULE_6___default().get('/api/authenticated').then(function () {
-        next();
-      })["catch"](function () {
-        return next({
-          name: "login"
+      if (_store__WEBPACK_IMPORTED_MODULE_7__.default.getters.user == null) {
+        axios__WEBPACK_IMPORTED_MODULE_6___default().get('/api/authenticated').then(function () {
+          _store__WEBPACK_IMPORTED_MODULE_7__.default.dispatch('fetchUser');
+          next();
+        })["catch"](function () {
+          return next({
+            name: "login"
+          });
         });
-      });
+      } else {
+        next();
+      }
     }
   }]
 });
@@ -38869,12 +38895,41 @@ var render = function() {
         _vm.user
           ? _c("div", { staticClass: "card bg-dark text-white" }, [
               _c("div", { staticClass: "card-header" }, [
-                _c("h3", [_vm._v(_vm._s(_vm.user.name))])
+                _c("h3", [_vm._v(_vm._s(_vm.user.name))]),
+                _vm._v(" "),
+                _c("p", [_vm._v(_vm._s(_vm.user.email))])
               ]),
               _vm._v(" "),
-              _c("div", { staticClass: "card-body" }, [
-                _c("p", [_vm._v(_vm._s(_vm.user.email))])
-              ])
+              _c(
+                "div",
+                { staticClass: "card-body" },
+                _vm._l(_vm.conversations, function(conversation) {
+                  return _c(
+                    "router-link",
+                    {
+                      key: conversation.id,
+                      attrs: { to: "/chat/" + conversation.id }
+                    },
+                    [
+                      _c(
+                        "div",
+                        {
+                          staticClass:
+                            "col-md-6 bg-primary rounded pt-2 pb-2 pl-4 pr-4 text-white"
+                        },
+                        [
+                          _vm._v(
+                            "\n                        " +
+                              _vm._s(conversation.name) +
+                              "\n                    "
+                          )
+                        ]
+                      )
+                    ]
+                  )
+                }),
+                1
+              )
             ])
           : _c("div", { staticClass: "card bg-dark" }, [
               _c(
