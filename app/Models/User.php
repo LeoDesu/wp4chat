@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -41,8 +42,8 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function send(User $user, string $content){
-        return $this->sent()->create(['receiver_id' => $user->id, 'content' => $content]);
+    public function send(int $user_id, string $content){
+        return $this->sent()->create(['receiver_id' => $user_id, 'content' => $content]);
     }
 
     public function sent(){
@@ -53,25 +54,39 @@ class User extends Authenticatable
         return $this->hasMany(Message::class, 'receiver_id');
     }
 
-    public function messagedWith(User $user){
+    public function messagedWith(int $user_id, int $limit = null){
         $sent = $this->sent->count() > 0 ?
-                    $this->sent->toQuery()->where('receiver_id', $user->id)->get():
+                    $this->sent->toQuery()->where('receiver_id', $user_id)->get():
                     $this->sent;
         $received = $this->received->count() > 0 ?
-                    $this->received->toQuery()->where('sender_id', $user->id)->get():
+                    $this->received->toQuery()->where('sender_id', $user_id)->get():
                     $this->received;
         $messages =  $sent->merge($received);
-        return $messages->count() > 0 ?
-                $messages->toQuery()->orderBy('created_at')->get():
-                $messages;
+        if($sent->merge($received)->count() <= 0){
+            return collect();
+        }else{
+            if($limit){
+                return $messages->toQuery()->orderBy('created_at', 'desc')->get()->take($limit);
+            }else{
+                return $messages->toQuery()->orderBy('created_at', 'desc')->get();
+            }
+        }
     }
 
     public function conversations(){
-        $sentIds = $this->sent->count() > 0 ?
-                    $this->sent->toQuery()->select('receiver_id')->get()->unique()->toArray() : $this->sent->toArray();
-        $receivedIds = $this->received->count() > 0 ?
-                    $this->received->toQuery()->select('sender_id')->get()->unique()->toArray() : $this->received->toArray();
+        $sentIds = $this->fetchUniqueOnly('receiver_id', $this->sent);
+        $receivedIds = $this->fetchUniqueOnly('sender_id', $this->received);
 
         return User::find(array_unique(array_merge($sentIds, $receivedIds)));
+    }
+
+    public function fetchUniqueOnly($key, Collection $collection){
+        $res = [];
+        if($collection->count() > 0){
+            foreach($collection->toQuery()->get($key)->unique($key)->toArray() as $i){
+                array_push($res, $i[$key]);
+            }
+        }
+        return $res;
     }
 }

@@ -9,7 +9,7 @@
                 </div>
                 <div class="card-body">
                     <router-link v-for="conversation in conversations" :key="conversation.id" :to="'/chat/'+conversation.id">
-                        <div class="col-md-6 bg-primary rounded pt-2 pb-2 pl-4 pr-4 text-white">
+                        <div class="col-md-6 bg-primary rounded pt-2 pb-2 pl-4 pr-4 text-white mb-1">
                             {{ conversation.name }}
                         </div>
                     </router-link>
