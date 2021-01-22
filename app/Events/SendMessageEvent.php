@@ -2,6 +2,7 @@
 
 namespace App\Events;
 
+use App\Models\Message;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PresenceChannel;
@@ -10,19 +11,19 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class SendMessageEvent
+class SendMessageEvent implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public $content;
+    public $message;
     /**
      * Create a new event instance with argument $content.
      *
      * @return void
      */
-    public function __construct($content)
+    public function __construct(Message $message)
     {
-        $this->content = $content;
+        $this->message = $message;
     }
 
     /**
@@ -32,7 +33,7 @@ class SendMessageEvent
      */
     public function broadcastOn()
     {
-        return new PrivateChannel('my-channel');
+        return new Channel('my-channel');
     }
     public function broadcastAs()
     {

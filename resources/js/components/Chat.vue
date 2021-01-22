@@ -4,7 +4,11 @@
         <div class="container">
             <div v-if="receiver" class="card bg-dark text-white">
                 <div class="card-header">
-                    <h3>{{ receiver.name }}</h3>
+                    <div class="row"><h3>{{ receiver.name }}</h3></div>
+                    <div class="row d-flex">
+                        <input class="form-control w-auto flex-1" type="text" placeholder="Type here" v-model="text" @keydown.enter="sendMessage">
+                        <input class="btn btn-primary" type="button" value="Send" @click="sendMessage">
+                    </div>
                 </div>
                 <div class="card-body">
                     <div class="row d-flex mb-1" v-for="message in messages" :key="message.id" :class="{'flex-row-reverse': message.sender_id == user.id}">
@@ -12,12 +16,6 @@
                             :class="{'bg-primary': message.sender_id == user.id, 'border border-primary': message.sender_id != user.id}">
                             {{ message.content }}
                         </p>
-                    </div>
-                </div>
-                <div class="card-footer">
-                    <div class="row d-flex">
-                        <input class="form-control w-auto flex-1" type="text" placeholder="Type here" v-model="text" @keydown.enter="sendMessage">
-                        <input class="btn btn-primary" type="button" value="Send" @click="sendMessage">
                     </div>
                 </div>
             </div>
@@ -33,6 +31,7 @@
 import Spinner from 'vue-loading-spinner/src/components/Circle2';
 import NavBar from './NavBar.vue';
 import { mapGetters } from "vuex";
+import Echo from 'laravel-echo';
 export default {
     components: {
         Spinner,
@@ -51,7 +50,7 @@ export default {
     methods:{
         fetchMessages: function(){
             axios.get('/api/messages/'+this.receiver.id+'/20').then( res => {
-                this.messages = res.data.reverse()
+                this.messages = res.data
             })
         },
         sendMessage: function(){
@@ -74,6 +73,12 @@ export default {
             console.log("not found")
             this.$router.push({ name:"notfound"})
         })
+
+        // Echo.channel('my-channel')
+        //     .listen('.send-message', (e) => {
+        //         console.log(e.content)
+        //         alert(e.content)
+        //     })
         Pusher.logToConsole = true;
 
         var pusher = new Pusher('125154b4f220c1830a26', {
@@ -81,9 +86,12 @@ export default {
         });
 
         var channel = pusher.subscribe('my-channel');
-        channel.bind('send-message', function(data) {
-            console.log(JSON.stringify(data));
-            alert(JSON.stringify(data));
+        channel.bind('send-message', (data) => {
+            try{
+                this.messages.unshift(data.message)
+            }catch(error){
+                console.log(error)
+            }
         });
     }
 }

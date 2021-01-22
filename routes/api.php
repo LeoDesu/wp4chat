@@ -41,7 +41,9 @@ Route::middleware('auth:sanctum')->group(function(){
     Route::post('/send', function(Request $request){
         $request->validate(['content' => ['required']]);
         $message = $request->user()->send($request->receiver_id,$request->content);
-        event(new SendMessageEvent($request->content));
+        // event(new SendMessageEvent($request->content));
+        // SendMessageEvent::dispatch($request->content);
+        broadcast(new SendMessageEvent($message));
         return $message->count();
     });
 });
