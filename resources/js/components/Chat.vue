@@ -110,7 +110,8 @@ export default {
         this.verifyThisPage()
         window.Echo.channel('my-channel')
             .listen('.send-message', (e) => {
-                this.messages.unshift(e.message)
+                if(e.message.receiver_id == this.user.id || e.message.sender_id == this.user.id)
+                    this.messages.unshift(e.message)
             })
             .listen('.delete-message', (e) => {
                 this.messages = this.messages.filter( i => (i.id != e.message.id))
