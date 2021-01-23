@@ -31,7 +31,6 @@
 import Spinner from 'vue-loading-spinner/src/components/Circle2';
 import NavBar from './NavBar.vue';
 import { mapGetters } from "vuex";
-import Echo from 'laravel-echo';
 export default {
     components: {
         Spinner,
@@ -59,40 +58,29 @@ export default {
             }).catch( res => {
                 this.text = ''
             })
+        },
+        verifyThisPage: function(){
+            axios.get('/api/getuser/'+this.$route.params.id).then( res => {
+                this.receiver = res.data
+                if(this.user.id == this.receiver.id){
+                    console.log("trigger redirect to dashboard")
+                    this.$router.push({ name:"dashboard" })
+                }
+                this.fetchMessages()
+            }).catch( () => {
+                console.log("not found")
+                this.$router.push({ name:"notfound"})
+            })
         }
     },
     mounted(){
-        axios.get('/api/getuser/'+this.$route.params.id).then( res => {
-            this.receiver = res.data
-            if(this.user.id == this.receiver.id){
-                console.log("trigger redirect to dashboard")
-                this.$router.push({ name:"dashboard" })
-            }
-            this.fetchMessages()
-        }).catch( () => {
-            console.log("not found")
-            this.$router.push({ name:"notfound"})
-        })
-
-        // Echo.channel('my-channel')
-        //     .listen('.send-message', (e) => {
-        //         console.log(e.content)
-        //         alert(e.content)
-        //     })
-        Pusher.logToConsole = true;
-
-        var pusher = new Pusher('125154b4f220c1830a26', {
-            cluster: 'ap1'
-        });
-
-        var channel = pusher.subscribe('my-channel');
-        channel.bind('send-message', (data) => {
-            try{
-                this.messages.unshift(data.message)
-            }catch(error){
-                console.log(error)
-            }
-        });
+        this.verifyThisPage()
+        window.Echo.channel('my-channel')
+            .listen('.send-message', (e) => {
+                console.log(e.message)
+                alert(e.message)
+                this.messages.unshift(e.message)
+            })
     }
 }
 </script>
