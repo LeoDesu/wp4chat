@@ -86,7 +86,7 @@ export default {
         deleteMessage: function(id){
             swal({
                 icon: "warning",
-                text: "are you sure, you want to delete this?",
+                text: "ທ່ານແນ່ໃຈບໍວ່າຕ້ອງການລົບຂໍ້ຄວາມນີ້?",
                 buttons:['nah', 'yes'],
                 dangerMode: true,
                 className:'swal-custom'
