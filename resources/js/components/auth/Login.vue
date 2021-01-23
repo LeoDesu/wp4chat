@@ -2,7 +2,7 @@
     <div class="container d-flex vh-100 justify-content-center align-items-center">
         <div class="card col-md-8 bg-dark text-white p-0">
             <div class="card-header text-center">
-                Login
+                ເຂົ້າສູ່ລະບົບ
             </div>
             <div class="card-body">
                 <div class="form-group row">
@@ -11,16 +11,15 @@
                     <span class="invalid-feedback offset-md-4" v-if="errors.email">{{ errors.email[0] }}</span>
                 </div>
                 <div class="form-group row">
-                    <label for="password" class="col-form-label col-md-4 text-md-right">Password: </label>
-                    <input class="col-md-6 form-control" :class="{'is-invalid': errors.password}" id="password" name="password" type="password" placeholder="Password" v-model="form.password">
+                    <label for="password" class="col-form-label col-md-4 text-md-right">ລະຫັດຜ່ານ: </label>
+                    <input class="col-md-6 form-control" :class="{'is-invalid': errors.password}" id="password" name="password" type="password" placeholder="ລະຫັດຜ່ານ" v-model="form.password">
                     <span class="invalid-feedback offset-md-4" v-if="errors.password">{{ errors.password[0] }}</span>
                 </div>
                 <div class="form-group row">
-                    <input class="offset-md-4 btn btn-primary mr-3" type="submit" value="Login" @click.prevent="login">
+                    <input class="offset-md-4 btn btn-primary mr-3" type="submit" value="ເຂົ້າສູ່ລະບົບ" @click.prevent="login">
                 </div>
-                <div class="form-group row">
-                    <span class="offset-md-4">don't have accont? <router-link v-if="!user" to="/register">Register</router-link></span>
-                </div>
+                <div class="row"><span class="offset-md-4">ຍັງບໍ່ມີບັນຊີ? <router-link to="/register">ລົງທະບຽນ</router-link></span></div>
+                <div class="row"><span class="offset-md-4"><router-link to="/about">ກ່ຽວກັບເວັບໄຊທ໌ນີ້</router-link></span></div>
             </div>
         </div>
     </div>

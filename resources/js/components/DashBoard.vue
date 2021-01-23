@@ -11,13 +11,13 @@
                         <p>{{ user.email }}</p>
                     </div>
                     <div>
-                        <button v-if="edit" @click="updateProfile" class="btn btn-success">Save</button>
-                        <button @click="toggleEdit" class="btn btn-primary">{{ edit?'Cancel':'Edit' }}</button>
+                        <button v-if="edit" @click="updateProfile" class="btn btn-success">ບັນທຶກ</button>
+                        <button @click="toggleEdit" class="btn btn-primary">{{ edit?'ຍົກເລີກ':'ແກ້ໄຂ' }}</button>
                     </div>
                 </div>
                 <div class="card-body">
                     <div class="row justify-content-center mb-2">
-                        <input type="text" v-model="search" @keyup="searchUsers" placeholder="Search here" class="form-control col-md-6">
+                        <input type="text" v-model="search" @keyup="searchUsers" placeholder="ຄົ້ນຫາທີ່ນີ້" class="form-control col-md-6">
                     </div>
                     <div class="row justify-content-center">
                         <div v-if="search == ''" class="col-md-6">
@@ -26,7 +26,7 @@
                                 {{ conversation.name }} : {{ conversation.email }}
                             </router-link>
                             <div v-if="conversations.length == 0" class="text-center">
-                                there's no conversation type in the text box to search for users to chat with
+                                ບໍ່ມີການສົນທະນາລ່າສຸດ. ຄົ້ນຫາຢູ່ຊ່ອງຂໍ້ຄວາມດ້ານເທິງເພື່ອຄົ້ນຫາໝູ່ຈາກເວັບໄຊທ໌ນີ້.
                             </div>
                         </div>
                         <div v-else class="col-md-6">
@@ -35,7 +35,7 @@
                                 {{ i.name }} : {{ i.email }}
                             </router-link>
                             <div v-if="userlist.length == 0" class="text-center">
-                                no result for "{{search}}"
+                                ບໍ່ມີຜົນການຄົ້ນຫາສໍາລັບ "{{search}}"
                             </div>
                         </div>
                     </div>

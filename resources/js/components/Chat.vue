@@ -11,8 +11,8 @@
                         </div>
                     </div>
                     <div class="row d-flex">
-                        <input class="form-control w-auto flex-1" type="text" placeholder="Type here" v-model="text" @keydown.enter="sendMessage" autofocus>
-                        <input class="btn btn-primary" type="button" value="Send" @click="sendMessage">
+                        <input class="form-control w-auto flex-1" type="text" placeholder="ພິມຂໍ້ຄວາມທີ່ນີ້" v-model="text" @keydown.enter="sendMessage" autofocus>
+                        <input class="btn btn-primary" type="button" value="ສົ່ງ" @click="sendMessage">
                     </div>
                 </div>
                 <div class="card-body">

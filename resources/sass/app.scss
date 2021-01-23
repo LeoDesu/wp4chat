@@ -1,5 +1,6 @@
 // Fonts
 @import url('https://fonts.googleapis.com/css?family=Nunito');
+@import url('//db.onlinewebfonts.com/c/938a9833b7244d806eca3349487c68ba?family=Phetsarath+OT');
 
 // Variables
 @import 'variables';
@@ -8,6 +9,7 @@
 @import '~bootstrap/scss/bootstrap';
 body{
     background-color: #111;
+    font-family: 'Phetsarath OT';
 }
 .w-5em{
     width: 3em;

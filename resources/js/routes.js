@@ -1,4 +1,3 @@
-import Home from './components/Home';
 import DashBoard from './components/DashBoard';
 import About from './components/About';
 import NotFound from './components/NotFound';
@@ -19,8 +18,10 @@ export default{
         },
         {
             path: '/',
-            component: Home,
-            name: 'home'
+            name: 'home',
+            beforeEnter: (to, from, next) => {
+                next({name:'dashboard'})
+            }
         },
         {
             path: '/about',
