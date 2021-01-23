@@ -3,7 +3,7 @@
         <nav-bar></nav-bar>
         <div class="container">
             <div v-if="user" class="card bg-dark text-white">
-                <div class="card-header d-flex justify-content-between">
+                <div class="card-header d-md-flex justify-content-between">
                     <div>
                         <h3 v-if="!edit">{{ user.name }}</h3>
                         <input v-else type="text" v-model="name" :class="{'is-invalid':errors.name}" class="form-control font-2" :placeholder="user.name">

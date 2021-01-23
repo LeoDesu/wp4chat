@@ -45520,7 +45520,9 @@ var render = function() {
           ? _c("div", { staticClass: "card bg-dark text-white" }, [
               _c(
                 "div",
-                { staticClass: "card-header d-flex justify-content-between" },
+                {
+                  staticClass: "card-header d-md-flex justify-content-between"
+                },
                 [
                   _c("div", [
                     !_vm.edit
