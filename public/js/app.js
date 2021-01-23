@@ -1861,6 +1861,22 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
@@ -45183,15 +45199,78 @@ var staticRenderFns = [
     return _c("div", { staticClass: "container" }, [
       _c("div", { staticClass: "card bg-dark text-white" }, [
         _c("div", { staticClass: "card-header text-center" }, [
-          _vm._v("\n                About\n            ")
+          _vm._v("\n                ກ່ຽວກັບເວັບໄຊທ໌ນີ້\n            ")
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "card-body text-center" }, [
           _vm._v(
-            "\n                uhh, there's still nothing much about this web yet."
+            "\n                ເວັບໄຊທ໌ນີ້ຖືກສ້າງຂຶ້ນເພື່ອເປັນຜົນງານທາງການສຶກສາ"
           ),
           _c("br"),
-          _vm._v("but I'll be sure updating it soon\n            ")
+          _vm._v(
+            "\n                ຂອງນັກສຶກສາຈາກ ຄະນະເຕັກໂນໂລຊີຂໍ້ມູນຂ່າວສານ ມະຫາວິທະຍາໄລສະຫວັນນະເຂດ"
+          ),
+          _c("br"),
+          _vm._v(
+            "\n                ສໍາລັບວຽກບ້ານໃນຊາ WP4 (ວິຊາອອກແບບ ແລະ ພັດທະນາເວັບໄຊທ໌)"
+          ),
+          _c("br"),
+          _vm._v(" "),
+          _c("br"),
+          _vm._v("\n                ຜູ້ພັດທະນາ:"),
+          _c("br"),
+          _vm._v("\n                ທ. ອາທິດ ໄຊສຸລິຍົງ"),
+          _c("br"),
+          _vm._v("\n                ທ. ກຽດຕິສັກ ແກ້ວວົງເງິນ"),
+          _c("br"),
+          _vm._v(" "),
+          _c("br"),
+          _vm._v("\n                ເຕັກໂນໂລຊີທີ່ໃຊ້:"),
+          _c("br"),
+          _vm._v(" "),
+          _c("a", { attrs: { href: "https://laravel.com/" } }, [
+            _vm._v("Laravel Framework")
+          ]),
+          _c("br"),
+          _vm._v(" "),
+          _c("a", { attrs: { href: "https://vuejs.org/" } }, [
+            _vm._v("Vue.js Framework")
+          ]),
+          _c("br"),
+          _vm._v(" "),
+          _c("a", { attrs: { href: "https://laravel.com/docs/8.x/sanctum" } }, [
+            _vm._v("Laravel Sanctum")
+          ]),
+          _c("br"),
+          _vm._v(" "),
+          _c(
+            "a",
+            { attrs: { href: "https://www.npmjs.com/package/laravel-echo" } },
+            [_vm._v("Laravel Echo")]
+          ),
+          _c("br"),
+          _vm._v(" "),
+          _c("a", { attrs: { href: "https://www.npmjs.com/package/axios" } }, [
+            _vm._v("Axios js")
+          ]),
+          _c("br"),
+          _vm._v(" "),
+          _c(
+            "a",
+            { attrs: { href: "https://www.npmjs.com/package/pusher-js" } },
+            [_vm._v("Pusher js")]
+          ),
+          _c("br"),
+          _vm._v(" "),
+          _c("a", { attrs: { href: "https://sweetalert.js.org/" } }, [
+            _vm._v("Sweetalert")
+          ]),
+          _c("br"),
+          _vm._v(" "),
+          _c("a", { attrs: { href: "https://jquery.com/" } }, [
+            _vm._v("JQery")
+          ]),
+          _c("br")
         ])
       ])
     ])
