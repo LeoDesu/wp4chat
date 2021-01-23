@@ -45866,7 +45866,7 @@ var staticRenderFns = [
       },
       [
         _c("h1", { staticClass: "text-center" }, [
-          _vm._v("404 Page Not Found.")
+          _vm._v("404 | ຂໍອະໄພ ບໍ່ພົມໜ້າທີ່ທ່ານຄົ້ນຫາ.")
         ])
       ]
     )
