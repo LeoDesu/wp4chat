@@ -4,9 +4,14 @@
         <div class="container">
             <div v-if="receiver" class="card bg-dark text-white">
                 <div class="card-header">
-                    <div class="row"><h3>{{ receiver.name }}</h3></div>
+                    <div class="row">
+                        <div class="ml-2">
+                            <h3 class="m-0">{{ receiver.name }}</h3>
+                            <p class="m-0">{{ receiver.email }}</p>
+                        </div>
+                    </div>
                     <div class="row d-flex">
-                        <input class="form-control w-auto flex-1" type="text" placeholder="Type here" v-model="text" @keydown.enter="sendMessage">
+                        <input class="form-control w-auto flex-1" type="text" placeholder="Type here" v-model="text" @keydown.enter="sendMessage" autofocus>
                         <input class="btn btn-primary" type="button" value="Send" @click="sendMessage">
                     </div>
                 </div>

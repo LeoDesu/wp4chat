@@ -1936,6 +1936,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
 
 
 
@@ -2078,6 +2083,24 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -2089,6 +2112,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   data: function data() {
     return {
       conversations: [],
+      userlist: [],
+      search: '',
       edit: false,
       name: '',
       errors: []
@@ -2111,14 +2136,24 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       })["catch"](function (err) {
         _this.errors = err.response.data.errors;
       });
+    },
+    searchUsers: function searchUsers() {
+      var _this2 = this;
+
+      this.userlist = [];
+      if (this.search != '') axios.get("/api/search/" + this.search).then(function (res) {
+        _this2.userlist = res.data.filter(function (i) {
+          return i.id != _this2.user.id;
+        });
+      });
     }
   }),
   computed: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_2__.mapGetters)(['user'])),
   mounted: function mounted() {
-    var _this2 = this;
+    var _this3 = this;
 
     axios.get('/api/conversations').then(function (res) {
-      _this2.conversations = res.data;
+      _this3.conversations = res.data;
     })["catch"](function (res) {});
   }
 });
@@ -45303,7 +45338,15 @@ var render = function() {
           ? _c("div", { staticClass: "card bg-dark text-white" }, [
               _c("div", { staticClass: "card-header" }, [
                 _c("div", { staticClass: "row" }, [
-                  _c("h3", [_vm._v(_vm._s(_vm.receiver.name))])
+                  _c("div", { staticClass: "ml-2" }, [
+                    _c("h3", { staticClass: "m-0" }, [
+                      _vm._v(_vm._s(_vm.receiver.name))
+                    ]),
+                    _vm._v(" "),
+                    _c("p", { staticClass: "m-0" }, [
+                      _vm._v(_vm._s(_vm.receiver.email))
+                    ])
+                  ])
                 ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "row d-flex" }, [
@@ -45317,7 +45360,11 @@ var render = function() {
                       }
                     ],
                     staticClass: "form-control w-auto flex-1",
-                    attrs: { type: "text", placeholder: "Type here" },
+                    attrs: {
+                      type: "text",
+                      placeholder: "Type here",
+                      autofocus: ""
+                    },
                     domProps: { value: _vm.text },
                     on: {
                       keydown: function($event) {
@@ -45583,36 +45630,108 @@ var render = function() {
                 ]
               ),
               _vm._v(" "),
-              _c(
-                "div",
-                { staticClass: "card-body" },
-                _vm._l(_vm.conversations, function(conversation) {
-                  return _c(
-                    "router-link",
-                    {
-                      key: conversation.id,
-                      attrs: { to: "/chat/" + conversation.id }
-                    },
-                    [
-                      _c(
+              _c("div", { staticClass: "card-body" }, [
+                _c("div", { staticClass: "row justify-content-center mb-2" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.search,
+                        expression: "search"
+                      }
+                    ],
+                    staticClass: "form-control col-md-6",
+                    attrs: { type: "text", placeholder: "Search here" },
+                    domProps: { value: _vm.search },
+                    on: {
+                      keyup: _vm.searchUsers,
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.search = $event.target.value
+                      }
+                    }
+                  })
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "row justify-content-center" }, [
+                  _vm.search == ""
+                    ? _c(
                         "div",
-                        {
-                          staticClass:
-                            "col-md-6 bg-primary rounded pt-2 pb-2 pl-4 pr-4 text-white mb-1"
-                        },
+                        { staticClass: "col-md-6" },
                         [
-                          _vm._v(
-                            "\n                        " +
-                              _vm._s(conversation.name) +
-                              "\n                    "
-                          )
-                        ]
+                          _vm._l(_vm.conversations, function(conversation) {
+                            return _c(
+                              "router-link",
+                              {
+                                key: conversation.id,
+                                staticClass:
+                                  "d-block bg-primary rounded pt-2 pb-2 pl-4 pr-4 text-white mb-1 text-decoration-none",
+                                attrs: { to: "/chat/" + conversation.id }
+                              },
+                              [
+                                _vm._v(
+                                  "\n                            " +
+                                    _vm._s(conversation.name) +
+                                    " : " +
+                                    _vm._s(conversation.email) +
+                                    "\n                        "
+                                )
+                              ]
+                            )
+                          }),
+                          _vm._v(" "),
+                          _vm.conversations.length == 0
+                            ? _c("div", { staticClass: "text-center" }, [
+                                _vm._v(
+                                  "\n                            there's no conversation type in the text box to search for users to chat with\n                        "
+                                )
+                              ])
+                            : _vm._e()
+                        ],
+                        2
                       )
-                    ]
-                  )
-                }),
-                1
-              )
+                    : _c(
+                        "div",
+                        { staticClass: "col-md-6" },
+                        [
+                          _vm._l(_vm.userlist, function(i) {
+                            return _c(
+                              "router-link",
+                              {
+                                key: i.id,
+                                staticClass:
+                                  "d-block bg-primary rounded pt-2 pb-2 pl-4 pr-4 text-white mb-1 text-decoration-none",
+                                attrs: { to: "/chat/" + i.id }
+                              },
+                              [
+                                _vm._v(
+                                  "\n                            " +
+                                    _vm._s(i.name) +
+                                    " : " +
+                                    _vm._s(i.email) +
+                                    "\n                        "
+                                )
+                              ]
+                            )
+                          }),
+                          _vm._v(" "),
+                          _vm.userlist.length == 0
+                            ? _c("div", { staticClass: "text-center" }, [
+                                _vm._v(
+                                  '\n                            no result for "' +
+                                    _vm._s(_vm.search) +
+                                    '"\n                        '
+                                )
+                              ])
+                            : _vm._e()
+                        ],
+                        2
+                      )
+                ])
+              ])
             ])
           : _c("div", { staticClass: "card bg-dark" }, [
               _c(

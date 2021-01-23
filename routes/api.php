@@ -57,6 +57,9 @@ Route::middleware('auth:sanctum')->group(function(){
         $message->delete();
         return $message;
     });
+    Route::get('/search/{name}', function(Request $request){
+        return User::where('name', 'like', "$request->name%")->get();
+    });
 });
 
 Route::post('register', [RegisterController::class, 'register']);
