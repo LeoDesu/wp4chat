@@ -11,11 +11,26 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    <div class="row d-flex mb-1" v-for="message in messages" :key="message.id" :class="{'flex-row-reverse': message.sender_id == user.id}">
-                        <p class="rounded pt-1 pb-1 pl-3 pr-3 m-0"
-                            :class="{'bg-primary': message.sender_id == user.id, 'border border-primary': message.sender_id != user.id}">
-                            {{ message.content }}
-                        </p>
+                    <div class="row d-flex align-items-center mb-1" v-for="message in messages" :key="message.id" :class="{'flex-row-reverse': message.sender_id == user.id}">
+                        <div>
+                            <p class="rounded pt-1 pb-1 pl-3 pr-3 m-0" @click="toggleOptions(message.id)"
+                                :class="{'bg-primary': message.sender_id == user.id, 'border border-primary': message.sender_id != user.id}">
+                                {{ message.content }}
+                            </p>
+                            <small>
+                                <p class="m-0 text-secondary" :class="{'text-right':message.sender_id == user.id}">
+                                    {{ new Date(message.created_at).getFullYear() }}/{{ new Date(message.created_at).getMonth()+1 }}/{{ new Date(message.created_at).getDate() }}
+                                    {{ new Date(message.created_at).getHours() }}:{{ new Date(message.created_at).getMinutes() }}
+                                </p>
+                            </small>
+                        </div>
+                        <svg :id="'delete-message-'+message.id" v-if="message.sender_id == user.id" @click="deleteMessage(message.id)"
+                            class="mb-3 mr-1 cursor-pointer d-none" enable-background="new 0 0 512.001 512.001" height="1em" width="1em" viewBox="0 0 512.001 512.001">
+                            <g>
+                                <path d="m512.001 84.853-84.853-84.853-171.147 171.147-69.853 84.853 69.853 84.854 171.147 171.147 84.853-84.853-171.148-171.148z" fill="#cc3245"/>
+                                <path d="m84.853 0-84.853 84.853 171.148 171.147-171.148 171.148 84.853 84.853 171.148-171.147v-169.707z" fill="#ff3e3a"/>
+                            </g>
+                        </svg>
                     </div>
                 </div>
             </div>
@@ -29,6 +44,7 @@
 </template>
 <script>
 import Spinner from 'vue-loading-spinner/src/components/Circle2';
+import swal from 'sweetalert';
 import NavBar from './NavBar.vue';
 import { mapGetters } from "vuex";
 export default {
@@ -59,16 +75,28 @@ export default {
                 this.text = ''
             })
         },
+        toggleOptions: function(id){
+            $('#delete-message-'+id).toggleClass('d-none')
+        },
+        deleteMessage: function(id){
+            swal({
+                icon: "warning",
+                text: "are you sure, you want to delete this?",
+                buttons:['nah', 'yes'],
+                dangerMode: true,
+                className:'swal-custom'
+            }).then( res => {
+                if(res) axios.post('/api/delete', {id})
+            })
+        },
         verifyThisPage: function(){
             axios.get('/api/getuser/'+this.$route.params.id).then( res => {
                 this.receiver = res.data
                 if(this.user.id == this.receiver.id){
-                    console.log("trigger redirect to dashboard")
                     this.$router.push({ name:"dashboard" })
                 }
                 this.fetchMessages()
             }).catch( () => {
-                console.log("not found")
                 this.$router.push({ name:"notfound"})
             })
         }
@@ -78,6 +106,9 @@ export default {
         window.Echo.channel('my-channel')
             .listen('.send-message', (e) => {
                 this.messages.unshift(e.message)
+            })
+            .listen('.delete-message', (e) => {
+                this.messages = this.messages.filter( i => (i.id != e.message.id))
             })
     }
 }

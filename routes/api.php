@@ -1,5 +1,6 @@
 <?php
 
+use App\Events\DeleteMessageEvent;
 use App\Events\SendMessageEvent;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
@@ -41,10 +42,14 @@ Route::middleware('auth:sanctum')->group(function(){
     Route::post('/send', function(Request $request){
         $request->validate(['content' => ['required']]);
         $message = $request->user()->send($request->receiver_id,$request->content);
-        // event(new SendMessageEvent($request->content));
-        // SendMessageEvent::dispatch($request->content);
         broadcast(new SendMessageEvent($message));
-        return $message->count();
+        return $message;
+    });
+    Route::post('/delete', function(Request $request){
+        $message = $request->user()->sent->find($request->id);
+        if($message) broadcast(new DeleteMessageEvent($message));
+        $message->delete();
+        return $message;
     });
 });
 

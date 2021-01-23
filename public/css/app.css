@@ -10917,4 +10917,14 @@ body {
   flex: 1;
 }
 
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.swal-custom,
+.swal-custom .swal-text {
+  background-color: #343a40 !important;
+  color: white !important;
+}
+
 
