@@ -23,11 +23,17 @@ Route::middleware('auth:sanctum')->group(function(){
     Route::get('/user', function (Request $request) {
         return $request->user();
     });
-    Route::get('/getuser/{id}', function (Request $request) {
+    Route::get('/getuser/{id}', function(Request $request){
         $user = User::find($request->id);
         return $user? $user:abort(404);
     });
-    Route::get('/authenticated', function (Request $request) {
+    Route::patch('/updateprofile', function(Request $request){
+        $request->validate([
+            'name' => ['required']
+        ]);
+        return $request->user()->update(['name' => $request->name]);
+    });
+    Route::get('/authenticated', function(Request $request){
         return true;
     });
     Route::get('/conversations', function(Request $request){

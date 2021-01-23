@@ -2070,6 +2070,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -2080,18 +2088,38 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   },
   data: function data() {
     return {
-      conversations: []
+      conversations: [],
+      edit: false,
+      name: '',
+      errors: []
     };
   },
+  methods: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_2__.mapActions)(['fetchUser'])), {}, {
+    toggleEdit: function toggleEdit() {
+      this.edit = !this.edit;
+      this.name = this.user.name;
+    },
+    updateProfile: function updateProfile() {
+      var _this = this;
+
+      axios.patch('/api/updateprofile', {
+        name: this.name
+      }).then(function (res) {
+        _this.fetchUser();
+
+        _this.edit = false;
+      })["catch"](function (err) {
+        _this.errors = err.response.data.errors;
+      });
+    }
+  }),
   computed: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_2__.mapGetters)(['user'])),
   mounted: function mounted() {
-    var _this = this;
+    var _this2 = this;
 
     axios.get('/api/conversations').then(function (res) {
-      _this.conversations = res.data;
-    })["catch"](function (res) {
-      console.log("can not retreive conversations.");
-    });
+      _this2.conversations = res.data;
+    })["catch"](function (res) {});
   }
 });
 
@@ -45490,11 +45518,68 @@ var render = function() {
       _c("div", { staticClass: "container" }, [
         _vm.user
           ? _c("div", { staticClass: "card bg-dark text-white" }, [
-              _c("div", { staticClass: "card-header" }, [
-                _c("h3", [_vm._v(_vm._s(_vm.user.name))]),
-                _vm._v(" "),
-                _c("p", [_vm._v(_vm._s(_vm.user.email))])
-              ]),
+              _c(
+                "div",
+                { staticClass: "card-header d-flex justify-content-between" },
+                [
+                  _c("div", [
+                    !_vm.edit
+                      ? _c("h3", [_vm._v(_vm._s(_vm.user.name))])
+                      : _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.name,
+                              expression: "name"
+                            }
+                          ],
+                          staticClass: "form-control font-2",
+                          class: { "is-invalid": _vm.errors.name },
+                          attrs: { type: "text", placeholder: _vm.user.name },
+                          domProps: { value: _vm.name },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.name = $event.target.value
+                            }
+                          }
+                        }),
+                    _vm._v(" "),
+                    _vm.errors.name
+                      ? _c("span", { staticClass: "invalid-feedback" }, [
+                          _vm._v(_vm._s(_vm.errors.name[0]))
+                        ])
+                      : _vm._e(),
+                    _vm._v(" "),
+                    _c("p", [_vm._v(_vm._s(_vm.user.email))])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", [
+                    _vm.edit
+                      ? _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-success",
+                            on: { click: _vm.updateProfile }
+                          },
+                          [_vm._v("Save")]
+                        )
+                      : _vm._e(),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-primary",
+                        on: { click: _vm.toggleEdit }
+                      },
+                      [_vm._v(_vm._s(_vm.edit ? "Cancel" : "Edit"))]
+                    )
+                  ])
+                ]
+              ),
               _vm._v(" "),
               _c(
                 "div",

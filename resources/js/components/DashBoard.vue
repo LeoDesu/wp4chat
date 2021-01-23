@@ -3,9 +3,17 @@
         <nav-bar></nav-bar>
         <div class="container">
             <div v-if="user" class="card bg-dark text-white">
-                <div class="card-header">
-                    <h3>{{ user.name }}</h3>
-                    <p>{{ user.email }}</p>
+                <div class="card-header d-flex justify-content-between">
+                    <div>
+                        <h3 v-if="!edit">{{ user.name }}</h3>
+                        <input v-else type="text" v-model="name" :class="{'is-invalid':errors.name}" class="form-control font-2" :placeholder="user.name">
+                        <span v-if="errors.name" class="invalid-feedback">{{ errors.name[0] }}</span>
+                        <p>{{ user.email }}</p>
+                    </div>
+                    <div>
+                        <button v-if="edit" @click="updateProfile" class="btn btn-success">Save</button>
+                        <button @click="toggleEdit" class="btn btn-primary">{{ edit?'Cancel':'Edit' }}</button>
+                    </div>
                 </div>
                 <div class="card-body">
                     <router-link v-for="conversation in conversations" :key="conversation.id" :to="'/chat/'+conversation.id">
@@ -26,7 +34,7 @@
 <script>
 import Spinner from 'vue-loading-spinner/src/components/Circle2';
 import NavBar from './NavBar.vue';
-import { mapGetters } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 export default {
     components: {
         Spinner,
@@ -34,7 +42,25 @@ export default {
     },
     data(){
         return {
-            conversations: []
+            conversations: [],
+            edit: false,
+            name: '',
+            errors: []
+        }
+    },
+    methods:{
+        ...mapActions(['fetchUser']),
+        toggleEdit: function(){
+            this.edit = !this.edit
+            this.name = this.user.name
+        },
+        updateProfile: function(){
+            axios.patch('/api/updateprofile', {name:this.name}).then( res => {
+                this.fetchUser()
+                this.edit = false
+            }).catch( err => {
+                this.errors = err.response.data.errors
+            })
         }
     },
     computed:{
@@ -44,7 +70,7 @@ export default {
         axios.get('/api/conversations').then( res => {
             this.conversations = res.data
         }).catch( res => {
-            console.log("can not retreive conversations.")
+
         })
     }
 }
