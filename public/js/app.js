@@ -1984,9 +1984,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
     this.verifyThisPage();
     window.Echo.channel('my-channel').listen('.send-message', function (e) {
-      console.log(e.message);
-      alert(e.message);
-
       _this4.messages.unshift(e.message);
     });
   }

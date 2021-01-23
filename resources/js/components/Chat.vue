@@ -77,8 +77,6 @@ export default {
         this.verifyThisPage()
         window.Echo.channel('my-channel')
             .listen('.send-message', (e) => {
-                console.log(e.message)
-                alert(e.message)
                 this.messages.unshift(e.message)
             })
     }
