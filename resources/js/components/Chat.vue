@@ -87,7 +87,7 @@ export default {
             swal({
                 icon: "warning",
                 text: "ທ່ານແນ່ໃຈບໍວ່າຕ້ອງການລົບຂໍ້ຄວາມນີ້?",
-                buttons:['nah', 'yes'],
+                buttons:['ບໍ່', 'ລົບ'],
                 dangerMode: true,
                 className:'swal-custom'
             }).then( res => {

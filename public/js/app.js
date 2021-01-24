@@ -2001,7 +2001,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       sweetalert__WEBPACK_IMPORTED_MODULE_1___default()({
         icon: "warning",
         text: "ທ່ານແນ່ໃຈບໍວ່າຕ້ອງການລົບຂໍ້ຄວາມນີ້?",
-        buttons: ['nah', 'yes'],
+        buttons: ['ບໍ່', 'ລົບ'],
         dangerMode: true,
         className: 'swal-custom'
       }).then(function (res) {
