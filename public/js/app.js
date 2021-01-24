@@ -1877,6 +1877,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
@@ -45252,6 +45255,11 @@ var staticRenderFns = [
           ),
           _c("br"),
           _vm._v(" "),
+          _c("a", { attrs: { href: "https://getbootstrap.com/" } }, [
+            _vm._v("Bootstrap")
+          ]),
+          _c("br"),
+          _vm._v(" "),
           _c("a", { attrs: { href: "https://www.npmjs.com/package/axios" } }, [
             _vm._v("Axios js")
           ]),
@@ -45272,7 +45280,13 @@ var staticRenderFns = [
           _c("a", { attrs: { href: "https://jquery.com/" } }, [
             _vm._v("JQery")
           ]),
-          _c("br")
+          _c("br"),
+          _vm._v(" "),
+          _c("br"),
+          _vm._v(" "),
+          _c("a", { attrs: { href: "https://github.com/LeoDesu/wp4chat" } }, [
+            _vm._v("ຊອດໂຄ໊ດ ແລະ ຂໍ້ມູນເພິ່ມເຕີມຂອງເວັບໄຊທ໌ນີ້")
+          ])
         ])
       ])
     ])

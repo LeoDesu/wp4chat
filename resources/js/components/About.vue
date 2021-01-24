@@ -20,10 +20,13 @@
                     <a href="https://vuejs.org/">Vue.js Framework</a><br>
                     <a href="https://laravel.com/docs/8.x/sanctum">Laravel Sanctum</a><br>
                     <a href="https://www.npmjs.com/package/laravel-echo">Laravel Echo</a><br>
+                    <a href="https://getbootstrap.com/">Bootstrap</a><br>
                     <a href="https://www.npmjs.com/package/axios">Axios js</a><br>
                     <a href="https://www.npmjs.com/package/pusher-js">Pusher js</a><br>
                     <a href="https://sweetalert.js.org/">Sweetalert</a><br>
                     <a href="https://jquery.com/">JQery</a><br>
+                    <br>
+                    <a href="https://github.com/LeoDesu/wp4chat">ຊອດໂຄ໊ດ ແລະ ຂໍ້ມູນເພິ່ມເຕີມຂອງເວັບໄຊທ໌ນີ້</a>
                 </div>
             </div>
         </div>
