@@ -30,6 +30,8 @@ Route::middleware('auth:sanctum')->group(function(){
     Route::patch('/updateprofile', function(Request $request){
         $request->validate([
             'name' => ['required']
+        ],[
+            'name.required' => 'ຊື້ຈະຕ້ອງບໍ່ເປັນຄ່າວ່າງ'
         ]);
         return $request->user()->update(['name' => $request->name]);
     });
