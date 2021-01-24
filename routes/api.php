@@ -60,7 +60,7 @@ Route::middleware('auth:sanctum')->group(function(){
         return $message;
     });
     Route::get('/search/{name}', function(Request $request){
-        return User::where('name', 'like', "$request->name%")->get();
+        return User::where('name', 'like', "%$request->name%")->get();
     });
 });
 
