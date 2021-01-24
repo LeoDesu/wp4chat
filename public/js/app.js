@@ -2035,7 +2035,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
     this.verifyThisPage();
     window.Echo.channel('my-channel').listen('.send-message', function (e) {
-      if (e.message.receiver_id == _this4.user.id || e.message.sender_id == _this4.user.id) _this4.messages.unshift(e.message);
+      if (e.message.receiver_id == _this4.user.id && e.message.sender_id == _this4.receiver.id || e.message.receiver_id == _this4.receiver.id && e.message.sender_id == _this4.user.id) {
+        _this4.messages.unshift(e.message);
+      }
     }).listen('.delete-message', function (e) {
       _this4.messages = _this4.messages.filter(function (i) {
         return i.id != e.message.id;
