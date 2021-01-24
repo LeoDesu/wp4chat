@@ -110,9 +110,8 @@ export default {
         this.verifyThisPage()
         window.Echo.channel('my-channel')
             .listen('.send-message', (e) => {
-                if((e.message.receiver_id == this.user.id && e.message.sender_id == this.receiver.id) ||
-                    (e.message.receiver_id == this.receiver.id && e.message.sender_id == this.user.id))
-                    {
+                if((e.message.receiver_id == this.user.id && e.message.sender_id == this.receiver.id)||
+                    (e.message.receiver_id == this.receiver.id && e.message.sender_id == this.user.id)){
                         this.messages.unshift(e.message)
                     }
             })
