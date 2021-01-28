@@ -2,7 +2,7 @@
 WP4Chat is a Single Page Web Application for chatting, using [Laravel framework](https://laravel.com/) and [Vue.js](https://vuejs.org/) as a group project for my for my university. I created this Web App as for educational purpose, when I was creating it, I still don't have much experience with Laravel and Vue.js yet. You're free to use it or criticize about it. Also this web app is in Lao language you might need to edit some part of the code to change it, but the code follow the convention of naming (I think) so it might be kinda easy to find and change it (I think)
 
 ### Installation
-- clone this project.
+- clone this project and open Terminal/CMD inside this project's folder or use command "cd" to go inside the folder.
 - run these commands to install pakages.
 ```
 composer install
